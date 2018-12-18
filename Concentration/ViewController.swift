@@ -17,7 +17,11 @@ class ViewController: UIViewController {
     // The only property in Concentration is cards
     // lazy means it is not initialized until someone uses it.
     // but lazy cannot have property observers, like didSet
-    lazy var game: Concentration = Concentration(numberOfPairsOfCards: ( cardButtons.count + 1 ) / 2)
+    lazy var game: Concentration = Concentration(numberOfPairsOfCards: numberOfPairsOfCards)
+    
+    var numberOfPairsOfCards: Int {
+        return (cardButtons.count + 1 ) / 2
+    }
     
     // property observer
     var flipCount: Int = 0 {
