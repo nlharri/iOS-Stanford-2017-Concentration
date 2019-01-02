@@ -31,14 +31,10 @@ class ViewController: UIViewController {
         }
     }
     
-    // ! means this property does not need initializer
+    // here ! means this property does not need initializer
     @IBOutlet private var cardButtons: [UIButton]!
     
     @IBOutlet private weak var flipCountLabel: UILabel!
-    
-    // this would also be ok
-    //var emojiChoices = ["👻", "🙊", "🦊", "🐶"]
-    //var emojiChoices: Array<String> = ["👻", "🙊", "🦊", "🐶"]
     
     @IBAction private func touchCard(_ sender: UIButton) {
         flipCount += 1
@@ -75,36 +71,24 @@ class ViewController: UIViewController {
 
     private func emoji(for card: Card) -> String {
         if emoji[card.identifier] == nil && emojiChoices.count > 0 {
-            let randomIndex = Int(arc4random_uniform(UInt32(emojiChoices.count)))
-            emoji[card.identifier] = emojiChoices.remove(at: randomIndex)
+            emoji[card.identifier] = emojiChoices.remove(at: emojiChoices.count.arc4random)
         }
-
-/*
-         if emoji[card.identifier] != nil {
-             return emoji[card.identifier]!
-         } else {
-             return "?"
-         }
-*/
         
         // the above one can simply be written like this!
         return emoji[card.identifier] ?? "?"
     }
-    /*
 
-    @IBAction func touchMonkeyCard(_ sender: UIButton) {
-        flipCard(withEmoji: "🙊", on: sender)
-        flipCount += 1
-    }
-    
-    func flipCard(withEmoji emoji: String, on button: UIButton) {
-        if button.currentTitle == emoji {
-            button.setTitle("", for: UIControl.State.normal)
-            button.backgroundColor = #colorLiteral(red: 1, green: 0.5781051517, blue: 0, alpha: 1)
+}
+
+extension Int {
+    var arc4random: Int {
+        if self > 0 {
+            return Int(arc4random_uniform(UInt32(self)))
+        } else if self < 0 {
+            return -Int(arc4random_uniform(UInt32(-self)))
         } else {
-            button.setTitle(emoji, for: UIControl.State.normal)
-            button.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+            return 0
         }
     }
- */
 }
+

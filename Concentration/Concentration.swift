@@ -49,24 +49,11 @@ class Concentration {
                         cards[index].isMatched = true
                     }
                     cards[index].isFaceUp = true
-                    //it is computed!! indexOfOneAndOnlyFaceUpCard = nil
                 }
             } else {
-//                // either 2 cards on no cards face up
-//                for flipDownIndex in cards.indices {
-//                    cards[flipDownIndex].isFaceUp = false
-//                }
-//                cards[index].isFaceUp = true
                 indexOfOneAndOnlyFaceUpCard = index
             }
         }
-        
-        /*
-        if cards[index].isFaceUp {
-            cards[index].isFaceUp = false
-        } else {
-            cards[index].isFaceUp = true
-        }*/
     }
     
     // initializers can be private as well, but in this case it should not be private
@@ -86,9 +73,5 @@ class Concentration {
             //   cards += [card, card]
             // this is the same
         }
-        // TODO SHUFFLE THE CARDS!!!
-        //
-        //╭━━━━━━╋╋╋╋
-
     }
 }
