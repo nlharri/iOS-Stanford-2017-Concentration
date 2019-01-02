@@ -12,9 +12,11 @@ import Foundation
 class Concentration {
     
     // here () is the initializer
-    var cards = [Card]()
+    // array is a value type and Card is a value type
+    // this means it cannot be modified
+    private(set) var cards = [Card]()
     
-    var indexOfOneAndOnlyFaceUpCard: Int? {
+    private var indexOfOneAndOnlyFaceUpCard: Int? {
         get {
             var foundIndex: Int?
             for index in cards.indices {
@@ -36,6 +38,7 @@ class Concentration {
     }
     
     func chooseCard(at index: Int) {
+        assert(cards.indices.contains(index), "Concentration.chooseCard(at: \(index)): chosen index not in the cards")
         if !cards[index].isMatched {
             if indexOfOneAndOnlyFaceUpCard != nil {
                 if indexOfOneAndOnlyFaceUpCard != index {
@@ -66,7 +69,9 @@ class Concentration {
         }*/
     }
     
+    // initializers can be private as well, but in this case it should not be private
     init(numberOfPairsOfCards: Int) {
+        assert(numberOfPairsOfCards > 0, "Concentration.init(\(numberOfPairsOfCards)): you must have at least one pair of cards")
         // CountableRange is a Sequence
         // special syntax
         // 1...numberOfPairsOfCards -- [1 -- numberOfPairsOfCards]

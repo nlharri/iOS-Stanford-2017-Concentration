@@ -17,29 +17,30 @@ class ViewController: UIViewController {
     // The only property in Concentration is cards
     // lazy means it is not initialized until someone uses it.
     // but lazy cannot have property observers, like didSet
-    lazy var game: Concentration = Concentration(numberOfPairsOfCards: numberOfPairsOfCards)
+    // the number of pairs of cards in the game is tied to the UI, that's why it is private
+    private lazy var game: Concentration = Concentration(numberOfPairsOfCards: numberOfPairsOfCards)
     
     var numberOfPairsOfCards: Int {
         return (cardButtons.count + 1 ) / 2
     }
     
     // property observer
-    var flipCount: Int = 0 {
+    private(set) var flipCount: Int = 0 {
         didSet {
             flipCountLabel.text = "Flips: \(flipCount)"
         }
     }
     
     // ! means this property does not need initializer
-    @IBOutlet var cardButtons: [UIButton]!
+    @IBOutlet private var cardButtons: [UIButton]!
     
-    @IBOutlet weak var flipCountLabel: UILabel!
+    @IBOutlet private weak var flipCountLabel: UILabel!
     
     // this would also be ok
     //var emojiChoices = ["👻", "🙊", "🦊", "🐶"]
     //var emojiChoices: Array<String> = ["👻", "🙊", "🦊", "🐶"]
     
-    @IBAction func touchCard(_ sender: UIButton) {
+    @IBAction private func touchCard(_ sender: UIButton) {
         flipCount += 1
         // ! means "assume this optional is set, and grap the associated value
         // if it is not set, it will crash!
@@ -54,7 +55,7 @@ class ViewController: UIViewController {
         }
     }
     
-    func updateViewFromModel() {
+    private func updateViewFromModel() {
         for index in cardButtons.indices {
             let button = cardButtons[index]
             let card = game.cards[index]
@@ -68,11 +69,11 @@ class ViewController: UIViewController {
         }
     }
     
-    var emojiChoices: Array<String> = ["🐰", "🦇", "🐂", "🐈", "👻", "🙊", "🦊", "🐶", "🐮", "🐫", "🐳", "🦈", "🐠", "🦐", "🦂", "🦍", "🦏", "🐎", "🐬"]
+    private var emojiChoices: Array<String> = ["🐰", "🦇", "🐂", "🐈", "👻", "🙊", "🦊", "🐶", "🐮", "🐫", "🐳", "🦈", "🐠", "🦐", "🦂", "🦍", "🦏", "🐎", "🐬"]
     
-    var emoji = Dictionary<Int, String>()
+    private var emoji = Dictionary<Int, String>()
 
-    func emoji(for card: Card) -> String {
+    private func emoji(for card: Card) -> String {
         if emoji[card.identifier] == nil && emojiChoices.count > 0 {
             let randomIndex = Int(arc4random_uniform(UInt32(emojiChoices.count)))
             emoji[card.identifier] = emojiChoices.remove(at: randomIndex)
