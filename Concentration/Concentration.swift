@@ -9,7 +9,8 @@
 import Foundation
 
 // this is the model
-class Concentration {
+// struct is a value type, it is constantly copied everywhere
+struct Concentration {
     
     // here () is the initializer
     // array is a value type and Card is a value type
@@ -37,7 +38,7 @@ class Concentration {
         }
     }
     
-    func chooseCard(at index: Int) {
+    mutating func chooseCard(at index: Int) {
         assert(cards.indices.contains(index), "Concentration.chooseCard(at: \(index)): chosen index not in the cards")
         if !cards[index].isMatched {
             if indexOfOneAndOnlyFaceUpCard != nil {
